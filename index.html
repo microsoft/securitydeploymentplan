@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Deployment Planner</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <link rel="favicon" href="data:;base64,iVBORw0KGgo=">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .question h3 {
+            margin-top: 0;
+        }
+        .question p {
+            margin: 10px 0;
+        }
+        .question a {
+            color: #0066cc;
+            text-decoration: none;
+        }
+        .question a:hover {
+            text-decoration: underline;
+        }
+        .radio-group {
+            margin: 10px 0;
+        }
+        button {
+            margin: 20px 0;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0052a3;
+        }
+        #results {
+            margin-top: 20px;
+        }
+        .deployed {
+            fill: #90EE90 !important;
+        }
+        .not-deployed {
+            fill: #FFB6C1 !important;
+        }
+        .switch-container {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin: 0 10px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #0066cc;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .instructions {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            border-left: 4px solid #0066cc;
+        }
+        .instructions h2 {
+            color: #0066cc;
+            margin-top: 0;
+        }
+        .instructions ol {
+            padding-left: 20px;
+        }
+        .instructions ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        .instructions strong {
+            color: #333;
+        }
+        .instructions p {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .recommendations .mermaid {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .export-button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .export-button:hover {
+            background-color: #0052a3;
+        }
+        @media print {
+            .export-button {
+                display: none;
+            }
+        }
+        .implementation-steps {
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            max-height: 1000px;
+            opacity: 1;
+            overflow: hidden;
+        }
+
+        .implementation-steps.hidden {
+            max-height: 0;
+            opacity: 0;
+            margin: 0;
+            padding: 0;
+        }
+        .question.hidden {
+            display: none;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .radio-group {
+            margin-top: 10px;
+        }
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .parent-question {
+            background-color: #f8f9fa;
+            border-left: 4px solid #0066cc;
+        }
+        
+        .child-question {
+            margin-left: 40px;
+            border-left: 2px solid #6c757d;
+            background-color: #ffffff;
+        }
+        
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .child-indicator {
+            color: #6c757d;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        
+        .question.hidden {
+            display: none;
+        }
+        
+        .radio-group {
+            margin-top: 10px;
+        }
+        
+        .question h3 {
+            margin: 0;
+            color: #333;
+        }
+        
+        .parent-question h3 {
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Security Deployment Assessment</h1>
+    
+    <div class="instructions">
+        <h2>How to Use This Assessment Tool</h2>
+        <ol>
+            <li><strong>Answer Questions:</strong> Go through each question and select "Yes" or "No" based on your current deployment status.</li>
+            <li><strong>Generate Results:</strong> Click the "Generate Results" button at the bottom of the form.</li>
+            <li><strong>Review Visualization:</strong>
+                <ul>
+                    <li>Toggle between Simplified and Detailed views using the switch</li>
+                    <li>Green boxes indicate deployed components</li>
+                    <li>Pink boxes indicate components yet to be deployed</li>
+                    <li>Click on any component to view Microsoft documentation</li>
+                </ul>
+            </li>
+            <li><strong>Review Recommendations:</strong> Below the diagram, you'll find:
+                <ul>
+                    <li>Prioritized deployment recommendations</li>
+                    <li>Links to key resources and documentation</li>
+                    <li>30/60/90 day implementation guidance</li>
+                </ul>
+            </li>
+        </ol>
+        <p><strong>Note:</strong> This tool is in development and should not be used for production deployments. For detailed implementation guidance, refer to the official Microsoft documentation.</p>
+    </div>
+
+    <form id="assessmentForm">
+        <div id="questionsContainer"></div>
+        <button type="button" onclick="generateResults()">Generate Results</button>
+    </form>
+    <div id="results" style="display: none;">
+        <div class="results-header">
+            <h2>Assessment Results</h2>
+            <button id="exportPDF" class="export-button">Export to PDF</button>
+        </div>
+        <div class="switch-container">
+            <span>Simplified View</span>
+            <label class="switch">
+                <input type="checkbox" id="diagramToggle" onchange="updateDiagram()">
+                <span class="slider"></span>
+            </label>
+            <span>Detailed View</span>
+        </div>
+        <div id="mermaidChart"></div>
+        <div id="recommendations"></div>
+    </div>
+
+    <script>
+        // Replace the existing questions array with a function to load questions
+        async function loadQuestions() {
+            try {
+                const response = await fetch('./questions.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                return data.questions;
+            } catch (error) {
+                console.error('Error loading questions:', error);
+                return [];
+            }
+        }
+
+        // Function to create question elements with nesting support
+        function createQuestionElements(questions) {
+            const container = document.getElementById('questionsContainer');
+            if (!container) {
+                console.error('Questions container not found!');
+                return;
+            }
+
+            // Clear existing questions
+            container.innerHTML = '';
+
+            // Create a map of questions for easy access
+            const questionMap = new Map(questions.map(q => [q.id, q]));
+
+            // Find all parent questions (those with children)
+            const parentQuestions = questions.filter(q => q.children);
+            
+            // Create a set of all child IDs for quick lookup
+            const childIds = new Set(parentQuestions.flatMap(q => q.children));
+
+            // Function to handle question visibility
+            function updateChildQuestions(parentId, isParentYes) {
+                const parentQuestion = questionMap.get(parentId);
+                if (parentQuestion.children) {
+                    parentQuestion.children.forEach(childId => {
+                        const childElement = document.querySelector(`[data-id="${childId}"]`);
+                        if (childElement) {
+                            if (isParentYes) {
+                                childElement.classList.add('hidden');
+                                const childYesRadio = document.querySelector(`#${childId}_yes`);
+                                if (childYesRadio) childYesRadio.checked = true;
+                            } else {
+                                childElement.classList.remove('hidden');
+                                const childNoRadio = document.querySelector(`#${childId}_no`);
+                                if (childNoRadio) childNoRadio.checked = true;
+                            }
+                            updateChildQuestions(childId, isParentYes);
+                        }
+                    });
+                }
+            }
+
+            // Create and append questions
+            questions.forEach(q => {
+                const questionDiv = document.createElement('div');
+                const isChild = childIds.has(q.id);
+                
+                // Apply appropriate classes based on whether it's a parent or child
+                questionDiv.className = `question ${isChild ? 'child-question' : 'parent-question'}`;
+                questionDiv.setAttribute('data-id', q.id);
+
+                // Add visual indicator for child questions
+                const questionContent = `
+                    <div class="question-header ${isChild ? 'child-header' : ''}">
+                        ${isChild ? '<span class="child-indicator">↳</span>' : ''}
+                        <h3>${q.text}</h3>
+                    </div>
+                    <p>${q.description}</p>
+                    <p><a href="${q.docLink}" target="_blank">Learn more</a></p>
+                    <div class="radio-group">
+                        <input type="radio" id="${q.id}_no" name="${q.id}" value="false" checked>
+                        <label for="${q.id}_no">No</label>
+                        <input type="radio" id="${q.id}_yes" name="${q.id}" value="true">
+                        <label for="${q.id}_yes">Yes</label>
+                    </div>
+                `;
+
+                questionDiv.innerHTML = questionContent;
+                container.appendChild(questionDiv);
+
+                // Add event listeners for radio buttons
+                const radioButtons = questionDiv.querySelectorAll('input[type="radio"]');
+                radioButtons.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        const isYes = e.target.value === 'true';
+                        updateChildQuestions(q.id, isYes);
+                    });
+                });
+            });
+        }
+
+        // Function to load recommendations from markdown file
+        async function loadRecommendations() {
+            try {
+                const response = await fetch('./recommendations.md');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const markdown = await response.text();
+                
+                // Initialize recommendations object
+                const recommendations = {
+                    keyResources: '',
+                    phases: {
+                        phase1: { title: '', items: {} },
+                        phase2: { title: '', items: {} },
+                        phase3: { title: '', items: {} }
+                    }
+                };
+
+                // Extract key resources
+                const keyResourcesMatch = markdown.match(/### Key Resources[\s\S]+?(?=\n---\n)/);
+                if (keyResourcesMatch) {
+                    recommendations.keyResources = keyResourcesMatch[0].trim();
+                }
+
+                // Find all phase sections
+                const phaseRegex = /## ([^\n]+) \{#(phase\d+)\}([\s\S]+?)(?=\n## |$)/g;
+                let phaseMatch;
+                
+                while ((phaseMatch = phaseRegex.exec(markdown)) !== null) {
+                    const [_, title, phaseId, content] = phaseMatch;
+                    recommendations.phases[phaseId].title = title;
+                    
+                    // Find all recommendations within this phase
+                    const recommendationRegex = /### ([^\n]+) \{#(\w+)\}([\s\S]+?)(?=\n### |$)/g;
+                    let recMatch;
+                    
+                    while ((recMatch = recommendationRegex.exec(content)) !== null) {
+                        const [__, recTitle, recId, recContent] = recMatch;
+                        recommendations.phases[phaseId].items[recId] = `### ${recTitle}\n${recContent}`;
+                    }
+                }
+
+                return recommendations;
+            } catch (error) {
+                console.error('Error loading recommendations:', error);
+                return null;
+            }
+        }
+
+        // Function to generate results
+        async function generateResults() {
+            console.log('Starting generateResults');
+            const deploymentStatus = {};
+            const questions = await loadQuestions();
+            questions.forEach(q => {
+                const radioValue = document.querySelector(`input[name="${q.id}"]:checked`).value;
+                deploymentStatus[q.id] = radioValue === 'true';
+            });
+            console.log('Deployment status:', deploymentStatus);
+
+            // Load recommendations from markdown file
+            const recommendations = await loadRecommendations();
+            if (!recommendations) {
+                console.error('Failed to load recommendations');
+                return;
+            }
+
+            // Generate recommendations content
+            let recommendationsContent = '## Recommended Next Steps\n\n';
+            
+            // Add key resources
+            recommendationsContent += recommendations.keyResources + '\n';
+
+            // Add recommendations by phase
+            Object.entries(recommendations.phases).forEach(([phaseId, phase]) => {
+                console.log(`Processing phase ${phaseId}:`, phase);
+                
+                // Check if any items in this phase need to be implemented
+                const pendingItems = Object.entries(phase.items)
+                    .filter(([id, _]) => !deploymentStatus[id]);
+                
+                if (pendingItems.length > 0) {
+                    console.log(`Found ${pendingItems.length} pending items in ${phaseId}`);
+                    // Add phase header
+                    recommendationsContent += `\n## ${phase.title}\n\n`;
+                    
+                    // Add recommendations for non-deployed items
+                    pendingItems.forEach(([id, content]) => {
+                        recommendationsContent += content + '\n\n';
+                        console.log('Added recommendation for:', id);
+                    });
+                }
+            });
+
+            // Generate and update the diagram
+            const mermaidDiv = document.getElementById('mermaidChart');
+            const isDetailed = document.getElementById('diagramToggle').checked;
+            
+            try {
+                // Clear existing diagram
+                mermaidDiv.innerHTML = '';
+                
+                // Generate new diagram
+                const diagram = isDetailed ? 
+                    await generateMermaidDiagram(deploymentStatus) : 
+                    await generateSimplifiedDiagram(deploymentStatus);
+                
+                // Create new diagram container
+                mermaidDiv.innerHTML = `<div class="mermaid">${diagram}</div>`;
+                
+                // Initialize Mermaid with a slight delay
+                setTimeout(() => {
+                    mermaid.init(undefined, ".mermaid");
+                }, 100);
+            } catch (error) {
+                console.error('Error generating diagram:', error);
+            }
+
+            // Update recommendations
+            const recommendationsDiv = document.getElementById('recommendations');
+            recommendationsDiv.innerHTML = marked.parse(recommendationsContent);
+            console.log('Updated recommendations');
+
+            // Show results
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Add these functions to load the diagrams
+        async function loadDiagram(filename) {
+            try {
+                const response = await fetch(`./${filename}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const markdown = await response.text();
+                
+                // Extract the Mermaid diagram content from the markdown
+                const mermaidMatch = markdown.match(/```mermaid\s*([\s\S]+?)\s*```/);
+                if (mermaidMatch) {
+                    return mermaidMatch[1].trim();
+                }
+                throw new Error('No Mermaid diagram found in markdown');
+            } catch (error) {
+                console.error(`Error loading diagram from ${filename}:`, error);
+                return null;
+            }
+        }
+
+        // Update the generateMermaidDiagram function
+        async function generateMermaidDiagram(deploymentStatus) {
+            const diagram = await loadDiagram('DetailedDiagram.md');
+            if (!diagram) return '';
+            
+            // Ensure we keep all content up to the class definitions
+            const [diagramContent] = diagram.split('classDef deployed');
+            
+            // Rebuild the diagram with deployment status
+            return `${diagramContent}
+                    classDef deployed fill:#90EE90,stroke:#333,stroke-width:2px
+                    classDef notDeployed fill:#FFB6C1,stroke:#333,stroke-width:2px
+                    classDef subgraphStyle fill:#f5f5f5,stroke:#666,stroke-width:2px
+                    classDef core fill:#e1f5fe,stroke:#0277bd,stroke-width:3px
+
+                    %% Apply styles
+                    class Core,DataProtection,ThreatProtection,IdentityProtection,NetworkAccess,IdentityGovernance,EndpointManagement,IdentityProtectiongroup,IdentityGovernance,Foundationcomponents subgraphStyle
+                    class Zero,Foundation,Data,Threats,SecureID,IntuneSuite core
+
+                    %% Apply deployment status
+                    ${Object.entries(deploymentStatus)
+                        .map(([id, isDeployed]) => `class ${id} ${isDeployed ? 'deployed' : 'notDeployed'}`)
+                        .join('\n                    ')}`;
+        }
+
+        // Update the generateSimplifiedDiagram function
+        async function generateSimplifiedDiagram(deploymentStatus) {
+            const diagram = await loadDiagram('SimplifiedDiagram.md');
+            if (!diagram) return '';
+            
+            // Ensure we keep all content up to the class definitions
+            const [diagramContent] = diagram.split('classDef deployed');
+            
+            // Rebuild the diagram with deployment status
+            return `${diagramContent}
+                    classDef deployed fill:#90EE90,stroke:#333,stroke-width:2px
+                    classDef notDeployed fill:#FFB6C1,stroke:#333,stroke-width:2px
+                    classDef subgraphStyle fill:#f5f5f5,stroke:#666,stroke-width:2px
+                    classDef core fill:#e1f5fe,stroke:#0277bd,stroke-width:3px
+
+                    %% Apply styles
+                    class Core,KeyIdentity,KeyEndpoint,KeySecurity,KeyData subgraphStyle
+                    class Zero,Foundation,Data,Threats core
+
+                    %% Apply deployment status
+                    ${Object.entries(deploymentStatus)
+                        .map(([id, isDeployed]) => `class ${id} ${isDeployed ? 'deployed' : 'notDeployed'}`)
+                        .join('\n                    ')}`;
+        }
+
+        // Update the updateDiagram function for consistency
+        async function updateDiagram() {
+            const deploymentStatus = {};
+            const questions = await loadQuestions();
+            questions.forEach(q => {
+                const radioValue = document.querySelector(`input[name="${q.id}"]:checked`).value;
+                deploymentStatus[q.id] = radioValue === 'true';
+            });
+
+            const mermaidDiv = document.getElementById('mermaidChart');
+            const isDetailed = document.getElementById('diagramToggle').checked;
+            
+            try {
+                // Clear existing diagram
+                mermaidDiv.innerHTML = '';
+                
+                // Generate new diagram
+                const diagram = isDetailed ? 
+                    await generateMermaidDiagram(deploymentStatus) : 
+                    await generateSimplifiedDiagram(deploymentStatus);
+                
+                // Create new diagram container
+                mermaidDiv.innerHTML = `<div class="mermaid">${diagram}</div>`;
+                
+                // Initialize Mermaid with a slight delay
+                setTimeout(() => {
+                    mermaid.init(undefined, ".mermaid");
+                }, 50);
+            } catch (error) {
+                console.error('Error updating diagram:', error);
+            }
+        }
+
+        // Update the initialization code
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                // Load questions first
+                const questions = await loadQuestions();
+                if (!questions.length) {
+                    throw new Error('Failed to load questions');
+                }
+
+                // Generate question elements
+                createQuestionElements(questions);
+                
+            } catch (error) {
+                console.error('Error during initialization:', error);
+                alert('Failed to load assessment questions. Please refresh the page.');
+            }
+        });
+
+        /**
+         * Exports the assessment results to a PDF document.
+         * Includes the Mermaid diagram, recommendations, and clickable links.
+         * @async
+         * @returns {Promise<void>}
+         * @throws {Error} If PDF generation fails
+         */
+        async function exportToPDF() {
+            try {
+                // Initialize PDF document with A4 portrait format
+                const doc = new jspdf.jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+
+                // Configure page layout
+                const margin = 20;
+                let yPos = margin;
+
+                // Add header section with title and date
+                doc.setTextColor(0, 51, 153);
+                doc.setFontSize(24);
+                doc.text('Security Deployment Assessment Results', margin, yPos);
+                yPos += 15;
+
+                doc.setTextColor(102, 102, 102);
+                doc.setFontSize(12);
+                doc.text(`Generated: ${new Date().toLocaleDateString()}`, margin, yPos);
+                yPos += 15;
+
+                // Get Mermaid diagram if it exists
+                const mermaidSvg = document.querySelector('.mermaid svg');
+                if (mermaidSvg) {
+                    try {
+                        // Convert SVG to canvas
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const svgData = new XMLSerializer().serializeToString(mermaidSvg);
+                        const img = new Image();
+                        
+                        await new Promise((resolve, reject) => {
+                            img.onload = resolve;
+                            img.onerror = reject;
+                            img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+                        });
+
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        
+                        const imgData = canvas.toDataURL('image/png');
+                        const pdfWidth = doc.internal.pageSize.width - 40;
+                        const pdfHeight = (img.height * pdfWidth) / img.width;
+                        
+                        doc.addImage(imgData, 'PNG', 20, yPos, pdfWidth, pdfHeight);
+                        yPos += pdfHeight + 20;
+                    } catch (error) {
+                        console.error('Error adding diagram to PDF:', error);
+                    }
+                }
+
+                // Process recommendations and links
+                const recommendationsDiv = document.getElementById('recommendations');
+                if (recommendationsDiv) {
+                    // Select all content elements that need processing
+                    const sections = recommendationsDiv.querySelectorAll('h2, p, ul, li, a');
+                    
+                    sections.forEach(element => {
+                        // Add new page if current page is full
+                        if (yPos > 270) {  // 270mm leaves room for margins
+                            doc.addPage();
+                            yPos = margin;
+                        }
+
+                        // Process each element type with appropriate formatting
+                        switch(element.tagName.toLowerCase()) {
+                            case 'h2':
+                                // Format section headers
+                                doc.setFontSize(16);
+                                doc.setTextColor(0, 51, 153);
+                                doc.text(element.textContent.trim(), margin, yPos);
+                                yPos += 10;
+                                break;
+
+                            case 'a':
+                                // Process hyperlinks with click functionality
+                                doc.setFontSize(12);
+                                doc.setTextColor(0, 0, 255);
+                                const linkText = element.textContent.trim();
+                                const linkUrl = element.href;
+                                
+                                // Create clickable area and add link text
+                                doc.link(margin, yPos - 5, doc.getTextWidth(linkText), 5, { url: linkUrl });
+                                doc.text(linkText, margin, yPos);
+                                yPos += 7;
+                                break;
+
+                            case 'li':
+                                // Process list items and their nested links
+                                doc.setFontSize(12);
+                                doc.setTextColor(0, 0, 0);
+                                const liText = element.childNodes[0].textContent.trim();
+                                doc.text('• ' + liText, margin + 5, yPos);
+                                
+                                // Handle links within list items
+                                const liLinks = element.getElementsByTagName('a');
+                                if (liLinks.length > 0) {
+                                    yPos += 7;
+                                    Array.from(liLinks).forEach(link => {
+                                        doc.setTextColor(0, 0, 255);
+                                        const linkText = link.textContent.trim();
+                                        doc.link(margin + 10, yPos - 5, doc.getTextWidth(linkText), 5, { url: link.href });
+                                        doc.text(linkText, margin + 10, yPos);
+                                        yPos += 7;
+                                    });
+                                } else {
+                                    yPos += 7;
+                                }
+                                break;
+
+                            default:
+                                // Process regular text content
+                                doc.setFontSize(12);
+                                doc.setTextColor(0, 0, 0);
+                                const text = element.textContent.trim();
+                                if (text) {
+                                    // Split long text to fit page width
+                                    const splitText = doc.splitTextToSize(text, 170);
+                                    splitText.forEach(line => {
+                                        doc.text(line, margin, yPos);
+                                        yPos += 7;
+                                    });
+                                }
+                        }
+                    });
+                }
+
+                // Save the generated PDF
+                doc.save('security-assessment-results.pdf');
+
+            } catch (error) {
+                console.error('Error generating PDF:', error);
+                alert('Failed to generate PDF. Please try again.');
+            }
+        }
+    </script>
+</body>
+</html>

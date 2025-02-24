@@ -1,0 +1,222 @@
+{
+    "questions": [
+        {
+            "id": "CA",
+            "text": "Have you configured Conditional Access Policies?",
+            "description": "Conditional Access helps you manage access to your resources based on specific conditions.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/identity/conditional-access/overview",
+            "children": ["MFA", "CloudID"]
+        },
+        {
+            "id": "CloudID",
+            "text": "Have you configured Cloud Identity?",
+            "description": "Cloud Identity provides the foundation for managing user identities and access in Microsoft 365.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/fundamentals/whatis"
+        },
+        {
+            "id": "MFA",
+            "text": "Have you deployed Multifactor Authentication?",
+            "description": "MFA adds an additional layer of security by requiring two or more verification methods.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-mfa-howitworks"
+        },
+        {
+            "id": "IntuneCompPol",
+            "text": "Have you configured Intune compliance policies?",
+            "description": "Compliance policies define the rules and settings devices must meet to be compliant.",
+            "docLink": "https://learn.microsoft.com/en-us/mem/intune/protect/device-compliance-get-started",
+            "children": ["IntuneEnroll", "AppProtection"]
+        },
+        {
+            "id": "AppProtection",
+            "text": "Have you configured App Protection Policies?",
+            "description": "App protection policies help protect organization data within managed apps.",
+            "docLink": "https://learn.microsoft.com/en-us/mem/intune/apps/app-protection-policies"
+        },
+        {
+            "id": "IntuneEnroll",
+            "text": "Have you configured Intune enrollment?",
+            "description": "Device enrollment enables device management in Microsoft Intune.",
+            "docLink": "https://learn.microsoft.com/en-us/mem/intune/enrollment/device-enrollment"
+        },
+        {
+            "id": "MDVM",
+            "text": "Have you configured Microsoft Defender Vulnerability Management?",
+            "description": "Defender Vulnerability Management helps identify, assess, and remediate endpoint vulnerabilities.",
+            "docLink": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-vulnerability-management/defender-vulnerability-management"
+        },
+        {
+            "id": "XDR",
+            "text": "Have you implemented Extended Detection and Response (XDR)?",
+            "description": "XDR provides unified security incident detection and response across endpoints, identities, and cloud apps.",
+            "docLink": "https://learn.microsoft.com/en-us/microsoft-365/security/defender/microsoft-365-defender",
+            "children": ["MDO", "MDE"]
+        },
+        {
+            "id": "MDO",
+            "text": "Have you deployed Defender for Office 365?",
+            "description": "Protects your organization against malicious threats from email messages, links and collaboration tools.",
+            "docLink": "https://learn.microsoft.com/en-us/microsoft-365/security/office-365-security/defender-for-office-365"
+        },
+        {
+            "id": "MDE",
+            "text": "Have you deployed Microsoft Defender for Endpoint?",
+            "description": "Defender for Endpoint provides advanced endpoint protection against cyber threats.",
+            "docLink": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/microsoft-defender-endpoint"
+        },
+        {
+            "id": "IDProtection",
+            "text": "Have you configured Identity Protection?",
+            "description": "Identity Protection uses machine learning to detect and prevent identity risks.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/id-protection/overview-identity-protection",
+            "children": ["IDProtAlerts"]
+        },
+        {
+            "id": "IGA",
+            "text": "Have you implemented Identity Governance and Administration?",
+            "description": "Identity Governance helps ensure the right users have the right access to the right resources.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/id-governance/",
+            "children": ["AccessReview"]
+        },
+        {
+            "id": "PIM",
+            "text": "Have you configured Privileged Identity Management?",
+            "description": "PIM provides time-based and approval-based role activation to mitigate the risks of excessive privileges.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-configure"
+        },
+        {
+            "id": "GSA",
+            "text": "Have you configured Entra Global Secure Access SSE?",
+            "description": "Global Secure Access provides secure connectivity for remote workers.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/global-secure-access/overview",
+            "children": ["EIA", "EPA"]
+        },
+        {
+            "id": "EIA",
+            "text": "Have you deployed Entra Internet Access?",
+            "description": "Secure internet access and web filtering for your organization.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/internet-access/overview"
+        },
+        {
+            "id": "EPA",
+            "text": "Have you deployed Entra Private Access?",
+            "description": "Entra Private Access provides secure access to private applications without VPNs.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/identity/private-access/private-access-overview",
+            "children": ["EPAConn"]
+        },
+        {
+            "id": "DSPM",
+            "text": "Have you implemented Data Security and Privacy Management?",
+            "description": "DSPM helps discover, classify, and protect sensitive data across your cloud environment.",
+            "docLink": "https://learn.microsoft.com/en-us/purview/data-security"
+        },
+        {
+            "id": "EndpointDLP",
+            "text": "Have you configured Endpoint DLP?",
+            "description": "Endpoint DLP helps prevent sensitive information from being shared inappropriately.",
+            "docLink": "https://learn.microsoft.com/en-us/purview/endpoint-dlp-learn-about"
+        },
+        {
+            "id": "EPM",
+            "text": "Have you configured Endpoint Privilege Management?",
+            "description": "EPM helps manage and monitor privileged access on endpoints.",
+            "docLink": "https://learn.microsoft.com/en-us/mem/intune/protect/endpoint-privilege-management"
+        },
+        {
+            "id": "CloudPKI",
+            "text": "Have you implemented Cloud PKI?",
+            "description": "Cloud PKI provides certificate lifecycle management for your devices and services.",
+            "docLink": "https://learn.microsoft.com/en-us/mem/intune/protect/certificates-configure"
+        },
+        {
+            "id": "RemoteHelp",
+            "text": "Have you configured Remote Help?",
+            "description": "Remote Help enables secure remote assistance for your users.",
+            "docLink": "https://learn.microsoft.com/en-us/mem/intune/remote-actions/remote-help"
+        },
+        {
+            "id": "SpecializedDevices",
+            "text": "Have you configured management for specialized devices?",
+            "description": "Specialized device management enables control over dedicated and shared devices.",
+            "docLink": "https://learn.microsoft.com/en-us/mem/intune/configuration/device-restrictions-configure"
+        },
+        {
+            "id": "AutoPilot",
+            "text": "Have you implemented Windows Autopilot?",
+            "description": "Autopilot streamlines the deployment and configuration of new Windows devices.",
+            "docLink": "https://learn.microsoft.com/en-us/mem/autopilot/windows-autopilot"
+        },
+        {
+            "id": "AppManagement",
+            "text": "Have you configured Enterprise App Management?",
+            "description": "Enterprise App Management helps deploy and manage applications across your organization.",
+            "docLink": "https://learn.microsoft.com/en-us/mem/intune/apps/"
+        },
+        {
+            "id": "RCA",
+            "text": "Have you implemented Risk-Based Conditional Access?",
+            "description": "Risk-based Conditional Access uses real-time risk detection to protect your resources.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-policy-risk"
+        },
+        {
+            "id": "DID",
+            "text": "Have you deployed Defender for Identity?",
+            "description": "Defender for Identity protects your on-premises Active Directory identities.",
+            "docLink": "https://learn.microsoft.com/en-us/defender-for-identity/what-is"
+        },
+        {
+            "id": "MDCA",
+            "text": "Have you deployed Defender for Cloud Apps?",
+            "description": "Cloud Access Security Broker that provides rich visibility and control over data travel.",
+            "docLink": "https://learn.microsoft.com/en-us/defender-cloud-apps/what-is-defender-for-cloud-apps"
+        },
+        {
+            "id": "IDProtAlerts",
+            "text": "Have you configured Identity Protection Alerts and Monitoring?",
+            "description": "Set up alerts and monitoring for identity risks and suspicious activities.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/id-protection/howto-identity-protection-configure-notifications"
+        },
+        {
+            "id": "EPAConn",
+            "text": "Have you deployed Entra Private Access Connector?",
+            "description": "The connector enables secure access to on-premises applications.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/identity/private-access/deployment-guide"
+        },
+        {
+            "id": "VID",
+            "text": "Have you deployed Entra Verified ID?",
+            "description": "Enables issuance and verification of decentralized identity credentials.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/verified-id/overview",
+            "children": ["VIDCred", "VIDWorkflow"]
+        },
+        {
+            "id": "VIDCred",
+            "text": "Have you configured Verified Credentials?",
+            "description": "Set up and manage verifiable credentials for your organization.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/verified-id/verifiable-credentials-configure"
+        },
+        {
+            "id": "VIDWorkflow",
+            "text": "Have you configured Verification Workflow?",
+            "description": "Set up workflows for issuing and verifying credentials.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/verified-id/verifiable-credentials-configure-workflow"
+        },
+        {
+            "id": "AccessReview",
+            "text": "Have you configured Access Reviews?",
+            "description": "Regular reviews of user access rights to maintain security.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/id-governance/access-reviews-overview"
+        },
+        {
+            "id": "EndpointAnalytics",
+            "text": "Have you deployed Advanced Endpoint Analytics?",
+            "description": "Monitor and improve end-user experience with proactive insights and recommendations.",
+            "docLink": "https://learn.microsoft.com/en-us/mem/analytics/"
+        },
+        {
+            "id": "PurAud",
+            "text": "Have you deployed Purview Audit?",
+            "description": "Microsoft Purview auditing solutions provide an integrated solution to help organizations effectively respond to security events, forensic investigations, internal investigations, and compliance obligations.",
+            "docLink": "https://learn.microsoft.com/en-us/purview/audit-solutions-overview"
+        }
+    ]
+} 
