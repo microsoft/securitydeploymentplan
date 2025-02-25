@@ -150,12 +150,10 @@
                     EndpointAnalytics["Analytics"]
                     RemoteHelp["Remote Help"]
                     EPM["Endpoint Privilege Management"]
-                    SpecializedDevices["Device Management"]
                     AppManagement["Enterprise App Management"]
                     Cloudpki["Cloud PKI"]
                 end
 
-                SpecializedDevices --> IntuneSuite
                 AppManagement --> IntuneSuite
                 EndpointAnalytics --> IntuneSuite
                 Cloudpki --> IntuneSuite
@@ -168,7 +166,6 @@
                 click EndpointAnalytics "https://learn.microsoft.com/en-us/mem/analytics/" _blank
                 click RemoteHelp "https://learn.microsoft.com/en-us/mem/intune/remote-actions/remote-help" _blank
                 click EPM "https://learn.microsoft.com/en-us/mem/intune/protect/endpoint-privilege-management" _blank
-                click SpecializedDevices "https://learn.microsoft.com/en-us/mem/intune/configuration/device-restrictions-configure" _blank
                 click AppManagement "https://learn.microsoft.com/en-us/mem/intune/apps/app-management" _blank
                 click Cloudpki "https://learn.microsoft.com/en-us/mem/intune/protect/microsoft-cloud-pki-overview" _blank
 

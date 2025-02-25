@@ -594,41 +594,6 @@ Implement comprehensive governance and management.
 - [Remote Help Roles](https://learn.microsoft.com/en-us/mem/intune/remote-actions/remote-help-roles)
 - [Monitor Remote Help](https://learn.microsoft.com/en-us/mem/intune/remote-actions/remote-help-monitor)
 
-### Specialized Device Management {#SpecializedDevices}
-**Why it's important:**
-- Enables management of dedicated devices
-- Supports diverse deployment scenarios
-- Enhances security for specific use cases
-- Simplifies device configuration
-- Reduces management overhead
-
-**Implementation Steps:**
-1. Plan device configurations
-   - Identify device scenarios
-   - Define security requirements
-   - Plan deployment groups
-   - Document configurations
-2. Configure device restrictions
-   - Set up platform restrictions
-   - Configure kiosk modes
-   - Enable shared device settings
-   - Implement app restrictions
-3. Implement specialized scenarios
-   - Configure dedicated devices
-   - Set up multi-app kiosk
-   - Enable device features
-   - Configure user access
-4. Monitor and maintain
-   - Review device status
-   - Track compliance
-   - Update configurations
-   - Monitor performance
-
-**Learn More:**
-- [Device Restrictions Overview](https://learn.microsoft.com/en-us/mem/intune/configuration/device-restrictions-configure)
-- [Kiosk Settings](https://learn.microsoft.com/en-us/mem/intune/configuration/kiosk-settings)
-- [Shared Device Configuration](https://learn.microsoft.com/en-us/mem/intune/configuration/shared-device-settings-configure)
-- [Device Feature Settings](https://learn.microsoft.com/en-us/mem/intune/configuration/device-features-configure)
 
 ### Windows Autopilot {#AutoPilot}
 **Why it's important:**
