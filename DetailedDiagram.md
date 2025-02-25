@@ -47,7 +47,7 @@
                     MDE["Defender Endpoint"]
                     MDCA["Defender Cloud Apps"]
                     MDVM["Def Volnerabilty Management"]
-                    MDO["Defender for Office]
+                    MDO["Defender for Office"]
                 end
                 XDR --> Threats
                 DID --> XDR
