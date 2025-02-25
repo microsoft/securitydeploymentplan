@@ -21,7 +21,7 @@
         },
         {
             "id": "IntuneEnroll",
-            "text": "Which platforms are you going to enroll in to Intune?",
+            "text": "Do you need to setup enrollment in Intune?",
             "description": "Device Management with Intune supports many platforms. Choose the platforms used in your environment you need guidance on configuring enrollment for.",
             "docLink": "https://learn.microsoft.com/en-us/mem/intune/fundamentals/deployment-guide-enrollment",
             "children": ["appProtection", "winEnroll", "iosEnroll", "androidEnroll", "macosEnroll", "linuxEnroll"]
