@@ -124,8 +124,8 @@
             "id": "EPA",
             "text": "Have you deployed Entra Private Access?",
             "description": "Entra Private Access provides secure access to private applications without VPNs.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/identity/private-access/private-access-overview",
-   },
+            "docLink": "https://learn.microsoft.com/en-us/entra/identity/private-access/private-access-overview"
+        },
         {
             "id": "EPAConn",
             "text": "Have you deployed Entra Private Access Connector?",
