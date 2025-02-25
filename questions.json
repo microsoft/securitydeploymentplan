@@ -28,43 +28,43 @@
         },
         {
             "id": "appProtection",
-            "text": "Mobile Application Management without Enrollment (MAM-WE)"
-            "description": "App protection policies help protect organization data within managed apps."
+            "text": "Mobile Application Management without Enrollment (MAM-WE)",
+            "description": "App protection policies help protect organization data within managed apps.",
             "docLink": "https://learn.microsoft.com/en-us/mem/intune/apps/app-protection-policy"
         },
         {
             "id": "winEnroll",
-            "text": "Windows Device Enrollment"
-            "description": "Manage Windows devices with Intune, including options for co-management with Configuration Manager"
-            "docLink": ""
+            "text": "Windows Device Enrollment",
+            "description": "Manage Windows devices with Intune, including options for co-management with Configuration Manager",
+            "docLink": "",
             "children": [""]
         },
         {
             "id": "iosEnroll",
-            "text": "iOS/iPadOS Device Enrollment"
-            "description": "Manage iOS/iPadOS device with Intune, including Apple Business/School Manager devices"
-            "docLink": ""
+            "text": "iOS/iPadOS Device Enrollment",
+            "description": "Manage iOS/iPadOS device with Intune, including Apple Business/School Manager devices",
+            "docLink": "",
             "children": [""]
         },
         {
             "id": "androidEnroll",
-            "text": "Android Enterprise Device Enrollment"
-            "description": "Manage Android Enterprise devices with Intune"
-            "docLink": ""
+            "text": "Android Enterprise Device Enrollment",
+            "description": "Manage Android Enterprise devices with Intune",
+            "docLink": "",
             "children": [""]
         },
         {
             "id": "macosEnroll",
-            "text": "macOS Device Enrollment"
-            "description": "Manage macOS devices "
-            "docLink": ""
+            "text": "macOS Device Enrollment",
+            "description": "Manage macOS devices",
+            "docLink": "",
             "children": [""]
         },
         {
             "id": "linuxEnroll",
-            "text": "Linux Device Enrollment"
-            "description": ""
-            "docLink": ""
+            "text": "Linux Device Enrollment",
+            "description": "",
+            "docLink": "",
             "children": [""]
         },
         {
