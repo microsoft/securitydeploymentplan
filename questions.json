@@ -20,9 +20,9 @@
             "docLink": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-mfa-howitworks"
         },
         {
-            "id": "IntuneCompPol",
-            "text": "Have you configured Intune compliance policies?",
-            "description": "Compliance policies define the rules and settings devices must meet to be compliant.",
+            "id": "IntuneEnroll",
+            "text": "Which platforms are you going to enroll in to Intune?",
+            "description": "Device Management with Intune supports many platforms. Choose the platforms used in your environment you need guidance on configuring enrollment for.",
             "docLink": "https://learn.microsoft.com/en-us/mem/intune/protect/device-compliance-get-started",
             "children": ["IntuneEnroll", "AppProtection"]
         },
@@ -33,7 +33,7 @@
             "docLink": "https://learn.microsoft.com/en-us/mem/intune/apps/app-protection-policies"
         },
         {
-            "id": "IntuneEnroll",
+            "id": "IntuneEnroll-2",
             "text": "Have you configured Intune enrollment?",
             "description": "Device enrollment enables device management in Microsoft Intune.",
             "docLink": "https://learn.microsoft.com/en-us/mem/intune/enrollment/device-enrollment"
