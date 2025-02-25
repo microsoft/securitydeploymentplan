@@ -49,7 +49,7 @@
             "text": "Have you implemented Extended Detection and Response (XDR)?",
             "description": "XDR provides unified security incident detection and response across endpoints, identities, and cloud apps.",
             "docLink": "https://learn.microsoft.com/en-us/microsoft-365/security/defender/microsoft-365-defender",
-            "children": ["MDO", "MDE"]
+            "children": ["MDO", "MDE", "DID"]
         },
         {
             "id": "MDO",
@@ -64,11 +64,29 @@
             "docLink": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/microsoft-defender-endpoint"
         },
         {
+            "id": "DID",
+            "text": "Have you deployed Defender for Identity?",
+            "description": "Defender for Identity protects your on-premises Active Directory identities.",
+            "docLink": "https://learn.microsoft.com/en-us/defender-for-identity/what-is"
+        },
+        {
             "id": "IDProtection",
             "text": "Have you configured Identity Protection?",
             "description": "Identity Protection uses machine learning to detect and prevent identity risks.",
             "docLink": "https://learn.microsoft.com/en-us/entra/id-protection/overview-identity-protection",
-            "children": ["IDProtAlerts"]
+            "children": ["IDProtAlerts", "RCA"]
+        },
+        {
+            "id": "RCA",
+            "text": "Have you implemented Risk-Based Conditional Access?",
+            "description": "Risk-based Conditional Access uses real-time risk detection to protect your resources.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-policy-risk"
+        },
+        {
+            "id": "IDProtAlerts",
+            "text": "Have you configured Identity Protection Alerts and Monitoring?",
+            "description": "Set up alerts and monitoring for identity risks and suspicious activities.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/id-protection/howto-identity-protection-configure-notifications"
         },
         {
             "id": "IGA",
@@ -76,6 +94,12 @@
             "description": "Identity Governance helps ensure the right users have the right access to the right resources.",
             "docLink": "https://learn.microsoft.com/en-us/entra/id-governance/",
             "children": ["AccessReview"]
+        },
+        {
+            "id": "AccessReview",
+            "text": "Have you configured Access Reviews?",
+            "description": "Regular reviews of user access rights to maintain security.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/id-governance/access-reviews-overview"
         },
         {
             "id": "PIM",
@@ -88,7 +112,7 @@
             "text": "Have you configured Entra Global Secure Access SSE?",
             "description": "Global Secure Access provides secure connectivity for remote workers.",
             "docLink": "https://learn.microsoft.com/en-us/entra/global-secure-access/overview",
-            "children": ["EIA", "EPA"]
+            "children": ["EIA", "EPA", "EPAConn"]
         },
         {
             "id": "EIA",
@@ -101,7 +125,12 @@
             "text": "Have you deployed Entra Private Access?",
             "description": "Entra Private Access provides secure access to private applications without VPNs.",
             "docLink": "https://learn.microsoft.com/en-us/entra/identity/private-access/private-access-overview",
-            "children": ["EPAConn"]
+   },
+        {
+            "id": "EPAConn",
+            "text": "Have you deployed Entra Private Access Connector?",
+            "description": "The connector enables secure access to on-premises applications.",
+            "docLink": "https://learn.microsoft.com/en-us/entra/identity/private-access/deployment-guide"
         },
         {
             "id": "DSPM",
@@ -146,34 +175,10 @@
             "docLink": "https://learn.microsoft.com/en-us/mem/intune/apps/"
         },
         {
-            "id": "RCA",
-            "text": "Have you implemented Risk-Based Conditional Access?",
-            "description": "Risk-based Conditional Access uses real-time risk detection to protect your resources.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-policy-risk"
-        },
-        {
-            "id": "DID",
-            "text": "Have you deployed Defender for Identity?",
-            "description": "Defender for Identity protects your on-premises Active Directory identities.",
-            "docLink": "https://learn.microsoft.com/en-us/defender-for-identity/what-is"
-        },
-        {
             "id": "MDCA",
             "text": "Have you deployed Defender for Cloud Apps?",
             "description": "Cloud Access Security Broker that provides rich visibility and control over data travel.",
             "docLink": "https://learn.microsoft.com/en-us/defender-cloud-apps/what-is-defender-for-cloud-apps"
-        },
-        {
-            "id": "IDProtAlerts",
-            "text": "Have you configured Identity Protection Alerts and Monitoring?",
-            "description": "Set up alerts and monitoring for identity risks and suspicious activities.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/id-protection/howto-identity-protection-configure-notifications"
-        },
-        {
-            "id": "EPAConn",
-            "text": "Have you deployed Entra Private Access Connector?",
-            "description": "The connector enables secure access to on-premises applications.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/identity/private-access/deployment-guide"
         },
         {
             "id": "VID",
@@ -193,12 +198,6 @@
             "text": "Have you configured Verification Workflow?",
             "description": "Set up workflows for issuing and verifying credentials.",
             "docLink": "https://learn.microsoft.com/en-us/entra/verified-id/verifiable-credentials-configure-workflow"
-        },
-        {
-            "id": "AccessReview",
-            "text": "Have you configured Access Reviews?",
-            "description": "Regular reviews of user access rights to maintain security.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/id-governance/access-reviews-overview"
         },
         {
             "id": "EndpointAnalytics",

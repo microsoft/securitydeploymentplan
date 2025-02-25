@@ -47,11 +47,13 @@
                     MDE["Defender Endpoint"]
                     MDCA["Defender Cloud Apps"]
                     MDVM["Def Volnerabilty Management"]
+                    MDO["Defender for Office]
                 end
                 XDR --> Threats
                 DID --> XDR
                 MDE --> XDR
                 MDCA --> XDR
+                MDO --> XDR
                 MDVM --> Threats
 
                 %% Add click events for Threat Protection components
@@ -60,6 +62,7 @@
                 click MDE "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/microsoft-defender-endpoint" _blank
                 click MDCA "https://learn.microsoft.com/en-us/defender-cloud-apps/what-is-defender-for-cloud-apps" _blank
                 click MDVM "https://learn.microsoft.com/en-us/defender-vulnerability-management/" _blank
+                click MDO "https://learn.microsoft.com/en-us/defender-office-365/mdo-sec-ops-guide" _blank
 
                 %% Group Foundation components
                 subgraph Foundationcomponents["Zero Trust Foundation"]
