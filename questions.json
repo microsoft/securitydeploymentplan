@@ -23,8 +23,49 @@
             "id": "IntuneEnroll",
             "text": "Which platforms are you going to enroll in to Intune?",
             "description": "Device Management with Intune supports many platforms. Choose the platforms used in your environment you need guidance on configuring enrollment for.",
-            "docLink": "https://learn.microsoft.com/en-us/mem/intune/protect/device-compliance-get-started",
-            "children": ["IntuneEnroll", "AppProtection"]
+            "docLink": "https://learn.microsoft.com/en-us/mem/intune/fundamentals/deployment-guide-enrollment",
+            "children": ["appProtection", "winEnroll", "iosEnroll", "androidEnroll", "macosEnroll", "linuxEnroll"]
+        },
+        {
+            "id": "appProtection",
+            "text": "Mobile Application Management without Enrollment (MAM-WE)"
+            "description": "App protection policies help protect organization data within managed apps."
+            "docLink": "https://learn.microsoft.com/en-us/mem/intune/apps/app-protection-policy"
+        },
+        {
+            "id": "winEnroll",
+            "text": "Windows Device Enrollment"
+            "description": "Manage Windows devices with Intune, including options for co-management with Configuration Manager"
+            "docLink": ""
+            "children": [""]
+        },
+        {
+            "id": "iosEnroll",
+            "text": "iOS/iPadOS Device Enrollment"
+            "description": "Manage iOS/iPadOS device with Intune, including Apple Business/School Manager devices"
+            "docLink": ""
+            "children": [""]
+        },
+        {
+            "id": "androidEnroll",
+            "text": "Android Enterprise Device Enrollment"
+            "description": "Manage Android Enterprise devices with Intune"
+            "docLink": ""
+            "children": [""]
+        },
+        {
+            "id": "macosEnroll",
+            "text": "macOS Device Enrollment"
+            "description": "Manage macOS devices "
+            "docLink": ""
+            "children": [""]
+        },
+        {
+            "id": "linuxEnroll",
+            "text": "Linux Device Enrollment"
+            "description": ""
+            "docLink": ""
+            "children": [""]
         },
         {
             "id": "AppProtection",
