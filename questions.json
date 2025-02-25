@@ -134,12 +134,6 @@
             "docLink": "https://learn.microsoft.com/en-us/mem/intune/remote-actions/remote-help"
         },
         {
-            "id": "SpecializedDevices",
-            "text": "Have you configured management for specialized devices?",
-            "description": "Specialized device management enables control over dedicated and shared devices.",
-            "docLink": "https://learn.microsoft.com/en-us/mem/intune/configuration/device-restrictions-configure"
-        },
-        {
             "id": "AutoPilot",
             "text": "Have you implemented Windows Autopilot?",
             "description": "Autopilot streamlines the deployment and configuration of new Windows devices.",
