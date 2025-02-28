@@ -8,7 +8,7 @@
 ---
 
 ## First 30 Days: Foundation and Quick Wins {#phase1}
-Focus on establishing core identity and device security. Conduct detailed assessement and plan for deployment. Review Key resources and consider running Zero Trust Assessment Workshop. 
+Focus on establishing core identity and device security. Conduct detailed assessment and plan for deployment. Review Key resources and consider running Zero Trust Assessment Workshop. 
 
 Review the Sample Plan: 
 
