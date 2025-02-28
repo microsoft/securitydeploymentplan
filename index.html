@@ -455,7 +455,7 @@
             }
 
             // Generate recommendations content
-            let recommendationsContent = '## Recommended Next Steps\n\n';
+            let recommendationsContent = '';
             
             // Add key resources
             recommendationsContent += recommendations.keyResources + '\n';
@@ -470,8 +470,18 @@
                 
                 if (pendingItems.length > 0) {
                     console.log(`Found ${pendingItems.length} pending items in ${phaseId}`);
-                    // Add phase header
+                    
+                    // Add phase header and description
                     recommendationsContent += `\n## ${phase.title}\n\n`;
+                    
+                    // Extract and add phase description
+                    if (phaseId === 'phase1') {
+                        recommendationsContent += "Focus on establishing core identity and device security. Conduct detailed assessement and plan for deployment. Review Key resources and consider running Zero Trust Assessment Workshop.\n\n";
+                    } else if (phaseId === 'phase2') {
+                        recommendationsContent += "Build on the foundation with advanced security capabilities.\n\n";
+                    } else if (phaseId === 'phase3') {
+                        recommendationsContent += "Implement comprehensive governance and management.\n\n";
+                    }
                     
                     // Add recommendations for non-deployed items
                     pendingItems.forEach(([id, content]) => {
@@ -846,6 +856,31 @@
                                 doc.setFont(undefined, 'bold');
                                 doc.text(text, margin, yPos);
                                 yPos += 12;
+
+                                // Check if next element is a phase description (it will be a paragraph right after the h2)
+                                const nextElement = element.nextElementSibling;
+                                if (nextElement && nextElement.tagName.toLowerCase() === 'p' && 
+                                    !nextElement.querySelector('a') && // Not a link paragraph
+                                    !nextElement.textContent.includes("Why it's important:") && 
+                                    !nextElement.textContent.includes("Implementation Steps:") && 
+                                    !nextElement.textContent.includes("Learn More:")) {
+                                    
+                                    // Add phase description with special formatting
+                                    doc.setFontSize(12);
+                                    doc.setTextColor(51, 51, 51);
+                                    doc.setFont(undefined, 'italic');
+                                    const descText = nextElement.textContent.trim();
+                                    const splitDesc = doc.splitTextToSize(descText, doc.internal.pageSize.width - (2 * margin));
+                                    splitDesc.forEach(line => {
+                                        if (yPos > doc.internal.pageSize.height - margin) {
+                                            doc.addPage();
+                                            yPos = margin;
+                                        }
+                                        doc.text(line, margin, yPos);
+                                        yPos += 7;
+                                    });
+                                    yPos += 5; // Add extra space after description
+                                }
                                 break;
 
                             case 'p':
