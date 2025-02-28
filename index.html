@@ -455,7 +455,7 @@
             }
 
             // Generate recommendations content
-            let recommendationsContent = '## Recommended Next Steps\n\n';
+            let recommendationsContent = '';
             
             // Add key resources
             recommendationsContent += recommendations.keyResources + '\n';
@@ -470,8 +470,18 @@
                 
                 if (pendingItems.length > 0) {
                     console.log(`Found ${pendingItems.length} pending items in ${phaseId}`);
-                    // Add phase header
+                    
+                    // Add phase header and description
                     recommendationsContent += `\n## ${phase.title}\n\n`;
+                    
+                    // Extract and add phase description
+                    if (phaseId === 'phase1') {
+                        recommendationsContent += "Focus on establishing core identity and device security. Conduct detailed assessement and plan for deployment. Review Key resources and consider running Zero Trust Assessment Workshop.\n\n";
+                    } else if (phaseId === 'phase2') {
+                        recommendationsContent += "Build on the foundation with advanced security capabilities.\n\n";
+                    } else if (phaseId === 'phase3') {
+                        recommendationsContent += "Implement comprehensive governance and management.\n\n";
+                    }
                     
                     // Add recommendations for non-deployed items
                     pendingItems.forEach(([id, content]) => {
@@ -631,6 +641,9 @@
                 // Generate question elements
                 createQuestionElements(questions);
                 
+                // Add event listener for Export PDF button
+                document.getElementById('exportPDF').addEventListener('click', exportToPDF);
+                
             } catch (error) {
                 console.error('Error during initialization:', error);
                 alert('Failed to load assessment questions. Please refresh the page.');
@@ -672,105 +685,292 @@
                 const mermaidSvg = document.querySelector('.mermaid svg');
                 if (mermaidSvg) {
                     try {
-                        // Convert SVG to canvas
-                        const canvas = document.createElement('canvas');
-                        const ctx = canvas.getContext('2d');
-                        const svgData = new XMLSerializer().serializeToString(mermaidSvg);
+                        // Create a clone of the SVG to avoid modifying the original
+                        const svgClone = mermaidSvg.cloneNode(true);
+                        
+                        // Set a higher resolution scale factor
+                        const scaleFactor = 3;
+                        const width = mermaidSvg.getBoundingClientRect().width * scaleFactor;
+                        const height = mermaidSvg.getBoundingClientRect().height * scaleFactor;
+
+                        // Set the SVG dimensions explicitly
+                        svgClone.setAttribute('width', width);
+                        svgClone.setAttribute('height', height);
+                        
+                        // Convert SVG to string with proper dimensions and encoding
+                        const svgData = new XMLSerializer().serializeToString(svgClone);
+                        const svgBase64 = btoa(unescape(encodeURIComponent(svgData)));
+                        const imgSrc = `data:image/svg+xml;base64,${svgBase64}`;
+
+                        // Create image and wait for it to load
                         const img = new Image();
                         
                         await new Promise((resolve, reject) => {
-                            img.onload = resolve;
+                            img.onload = () => {
+                                try {
+                                    // Create canvas with high resolution
+                                    const canvas = document.createElement('canvas');
+                                    canvas.width = width;
+                                    canvas.height = height;
+                                    const ctx = canvas.getContext('2d');
+
+                                    // Enable high-quality rendering
+                                    ctx.imageSmoothingEnabled = true;
+                                    ctx.imageSmoothingQuality = 'high';
+
+                                    // Draw image to canvas
+                                    ctx.fillStyle = 'white';
+                                    ctx.fillRect(0, 0, width, height);
+                                    ctx.drawImage(img, 0, 0, width, height);
+
+                                    // Get PNG data
+                                    const pngData = canvas.toDataURL('image/png', 1.0);
+
+                                    // Calculate dimensions to fit in PDF
+                                    const pdfWidth = doc.internal.pageSize.width - (2 * margin);
+                                    const pdfHeight = (height * pdfWidth) / width;
+
+                                    // Add image to PDF
+                                    doc.addImage(pngData, 'PNG', margin, yPos, pdfWidth, pdfHeight);
+                                    yPos += pdfHeight + 20;
+                                    resolve();
+                                } catch (err) {
+                                    reject(err);
+                                }
+                            };
                             img.onerror = reject;
-                            img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+                            img.src = imgSrc;
                         });
 
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0);
-                        
-                        const imgData = canvas.toDataURL('image/png');
-                        const pdfWidth = doc.internal.pageSize.width - 40;
-                        const pdfHeight = (img.height * pdfWidth) / img.width;
-                        
-                        doc.addImage(imgData, 'PNG', 20, yPos, pdfWidth, pdfHeight);
-                        yPos += pdfHeight + 20;
                     } catch (error) {
                         console.error('Error adding diagram to PDF:', error);
+                        // Add error message to PDF if diagram conversion fails
+                        doc.setTextColor(255, 0, 0);
+                        doc.setFontSize(10);
+                        doc.text('Error: Could not include diagram in PDF', margin, yPos);
+                        yPos += 10;
                     }
                 }
 
                 // Process recommendations and links
                 const recommendationsDiv = document.getElementById('recommendations');
                 if (recommendationsDiv) {
+                    // Add recommendations title
+                    doc.setTextColor(0, 51, 153);
+                    doc.setFontSize(18);
+                    doc.setFont(undefined, 'bold');
+                    doc.text('Recommendations', margin, yPos);
+                    yPos += 15;
+
                     // Select all content elements that need processing
-                    const sections = recommendationsDiv.querySelectorAll('h2, p, ul, li, a');
+                    const sections = recommendationsDiv.querySelectorAll('h2, h3, h4, p, ul, ol, li');
+                    
+                    // Keep track of list context
+                    let listStack = [];
+                    let isInImplementationSteps = false;
+                    let implementationStepCounter = 0;
                     
                     sections.forEach(element => {
                         // Add new page if current page is full
-                        if (yPos > 270) {  // 270mm leaves room for margins
+                        if (yPos > doc.internal.pageSize.height - margin) {
                             doc.addPage();
                             yPos = margin;
+                        }
+
+                        const text = element.textContent.trim();
+                        
+                        // Check if we're in Implementation Steps section
+                        if (text.includes("Implementation Steps:")) {
+                            isInImplementationSteps = true;
+                            implementationStepCounter = 0;
+                        } else if (text.includes("Learn More:")) {
+                            isInImplementationSteps = false;
+                        }
+
+                        // Update list context when encountering a list element
+                        if (element.tagName.toLowerCase() === 'ol' || element.tagName.toLowerCase() === 'ul') {
+                            const parentList = element.parentElement.closest('ol, ul');
+                            const isNested = !!parentList;
+                            const listType = element.tagName.toLowerCase();
+                            
+                            if (!isNested) {
+                                // Reset stack for new top-level list
+                                listStack = [];
+                            }
+                            
+                            listStack.push({
+                                type: listType,
+                                isTopLevel: !isNested,
+                                counter: 0
+                            });
+                            return;
+                        }
+
+                        // Special handling for recommendation titles (they are h3 elements)
+                        if (element.tagName.toLowerCase() === 'h3' && 
+                            !text.includes("Why it's important:") && 
+                            !text.includes("Implementation Steps:") && 
+                            !text.includes("Learn More:")) {
+                            // Reset list context
+                            listStack = [];
+                            // Add extra space before recommendation titles
+                            yPos += 10;
+                            doc.setFontSize(16);
+                            doc.setTextColor(0, 51, 153);
+                            doc.setFont(undefined, 'bold');
+                            doc.text(text, margin, yPos);
+                            // Add underline
+                            yPos += 2;
+                            doc.setDrawColor(0, 51, 153);
+                            doc.line(margin, yPos, margin + doc.getTextWidth(text), yPos);
+                            yPos += 8;
+                            return;
+                        }
+                        
+                        // Special handling for section headings
+                        if (text.includes("Why it's important:") || 
+                            text.includes("Implementation Steps:") || 
+                            text.includes("Learn More:")) {
+                            // Reset list context
+                            listStack = [];
+                            // Add extra space before these headings
+                            yPos += 5;
+                            doc.setFontSize(14);
+                            doc.setTextColor(0, 51, 153);
+                            doc.setFont(undefined, 'bold');
+                            doc.text(text, margin, yPos);
+                            // Add underline
+                            yPos += 2;
+                            doc.setDrawColor(0, 51, 153);
+                            doc.line(margin, yPos, margin + doc.getTextWidth(text), yPos);
+                            yPos += 8;
+                            return;
                         }
 
                         // Process each element type with appropriate formatting
                         switch(element.tagName.toLowerCase()) {
                             case 'h2':
-                                // Format section headers
+                                listStack = [];
                                 doc.setFontSize(16);
                                 doc.setTextColor(0, 51, 153);
-                                doc.text(element.textContent.trim(), margin, yPos);
-                                yPos += 10;
-                                break;
+                                doc.setFont(undefined, 'bold');
+                                doc.text(text, margin, yPos);
+                                yPos += 12;
 
-                            case 'a':
-                                // Process hyperlinks with click functionality
-                                doc.setFontSize(12);
-                                doc.setTextColor(0, 0, 255);
-                                const linkText = element.textContent.trim();
-                                const linkUrl = element.href;
-                                
-                                // Create clickable area and add link text
-                                doc.link(margin, yPos - 5, doc.getTextWidth(linkText), 5, { url: linkUrl });
-                                doc.text(linkText, margin, yPos);
-                                yPos += 7;
-                                break;
-
-                            case 'li':
-                                // Process list items and their nested links
-                                doc.setFontSize(12);
-                                doc.setTextColor(0, 0, 0);
-                                const liText = element.childNodes[0].textContent.trim();
-                                doc.text('• ' + liText, margin + 5, yPos);
-                                
-                                // Handle links within list items
-                                const liLinks = element.getElementsByTagName('a');
-                                if (liLinks.length > 0) {
-                                    yPos += 7;
-                                    Array.from(liLinks).forEach(link => {
-                                        doc.setTextColor(0, 0, 255);
-                                        const linkText = link.textContent.trim();
-                                        doc.link(margin + 10, yPos - 5, doc.getTextWidth(linkText), 5, { url: link.href });
-                                        doc.text(linkText, margin + 10, yPos);
+                                // Check if next element is a phase description (it will be a paragraph right after the h2)
+                                const nextElement = element.nextElementSibling;
+                                if (nextElement && nextElement.tagName.toLowerCase() === 'p' && 
+                                    !nextElement.querySelector('a') && // Not a link paragraph
+                                    !nextElement.textContent.includes("Why it's important:") && 
+                                    !nextElement.textContent.includes("Implementation Steps:") && 
+                                    !nextElement.textContent.includes("Learn More:")) {
+                                    
+                                    // Add phase description with special formatting
+                                    doc.setFontSize(12);
+                                    doc.setTextColor(51, 51, 51);
+                                    doc.setFont(undefined, 'italic');
+                                    const descText = nextElement.textContent.trim();
+                                    const splitDesc = doc.splitTextToSize(descText, doc.internal.pageSize.width - (2 * margin));
+                                    splitDesc.forEach(line => {
+                                        if (yPos > doc.internal.pageSize.height - margin) {
+                                            doc.addPage();
+                                            yPos = margin;
+                                        }
+                                        doc.text(line, margin, yPos);
                                         yPos += 7;
                                     });
-                                } else {
-                                    yPos += 7;
+                                    yPos += 5; // Add extra space after description
                                 }
                                 break;
 
-                            default:
-                                // Process regular text content
+                            case 'p':
+                                listStack = [];
                                 doc.setFontSize(12);
                                 doc.setTextColor(0, 0, 0);
-                                const text = element.textContent.trim();
+                                doc.setFont(undefined, 'normal');
                                 if (text) {
-                                    // Split long text to fit page width
-                                    const splitText = doc.splitTextToSize(text, 170);
+                                    const splitText = doc.splitTextToSize(text, doc.internal.pageSize.width - (2 * margin));
                                     splitText.forEach(line => {
+                                        if (yPos > doc.internal.pageSize.height - margin) {
+                                            doc.addPage();
+                                            yPos = margin;
+                                        }
                                         doc.text(line, margin, yPos);
                                         yPos += 7;
                                     });
                                 }
+                                break;
+
+                            case 'li':
+                                doc.setFontSize(12);
+                                doc.setTextColor(0, 0, 0);
+                                doc.setFont(undefined, 'normal');
+                                
+                                const baseIndent = 10;
+                                const parentList = element.parentElement;
+                                const isOrdered = parentList.tagName.toLowerCase() === 'ol';
+                                const isTopLevel = !parentList.parentElement.closest('ol, ul');
+                                
+                                // Calculate indent based on list type
+                                let listIndent = margin;
+                                if (!isOrdered || !isInImplementationSteps || !isTopLevel) {
+                                    // Single level indent for all bullet points
+                                    listIndent += baseIndent;
+                                }
+                                
+                                let prefix = '';
+                                
+                                // Handle different list types
+                                if (isOrdered && isInImplementationSteps && isTopLevel) {
+                                    implementationStepCounter++;
+                                    prefix = `${implementationStepCounter}. `;
+                                } else {
+                                    prefix = '• ';
+                                }
+                                
+                                // Calculate available width for text
+                                const prefixWidth = doc.getTextWidth(prefix);
+                                const availableWidth = doc.internal.pageSize.width - (2 * margin) - 
+                                    (isOrdered && isInImplementationSteps && isTopLevel ? 0 : baseIndent);
+
+                                // Draw the prefix
+                                doc.text(prefix, listIndent, yPos);
+                                
+                                // Handle list items with links
+                                const link = element.querySelector('a');
+                                if (link) {
+                                    // This is a link item
+                                    doc.setTextColor(0, 0, 255);
+                                    const linkText = link.textContent.trim();
+                                    const linkUrl = link.href;
+                                    
+                                    // Add the link with proper formatting
+                                    const wrappedText = doc.splitTextToSize(linkText, availableWidth - prefixWidth);
+                                    wrappedText.forEach((line, index) => {
+                                        if (yPos > doc.internal.pageSize.height - margin) {
+                                            doc.addPage();
+                                            yPos = margin;
+                                        }
+                                        doc.text(line, listIndent + prefixWidth, yPos);
+                                        doc.link(listIndent + prefixWidth, yPos - 5, doc.getTextWidth(line), 5, { url: linkUrl });
+                                        yPos += 7;
+                                    });
+                                } else {
+                                    // Regular text item
+                                    doc.setTextColor(0, 0, 0);
+                                    const itemText = element.childNodes[0].textContent.trim();
+                                    const wrappedText = doc.splitTextToSize(itemText, availableWidth - prefixWidth);
+                                    
+                                    wrappedText.forEach((line, index) => {
+                                        if (yPos > doc.internal.pageSize.height - margin) {
+                                            doc.addPage();
+                                            yPos = margin;
+                                        }
+                                        doc.text(line, listIndent + prefixWidth, yPos);
+                                        yPos += 7;
+                                    });
+                                }
+                                break;
                         }
                     });
                 }

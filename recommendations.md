@@ -8,7 +8,9 @@
 ---
 
 ## First 30 Days: Foundation and Quick Wins {#phase1}
-Focus on establishing core identity and device security.
+Focus on establishing core identity and device security. Conduct detailed assessement and plan for deployment. Review Key resources and consider running Zero Trust Assessment Workshop. 
+
+Review the Sample Plan: 
 
 ### Cloud Identity {#CloudID}
 **Why it's important:**
@@ -147,6 +149,42 @@ Focus on establishing core identity and device security.
 - [Video Series: Intune Enrollment](https://www.youtube.com/watch?v=qZw_rNWtEyU)
 - [Troubleshooting Guide](https://learn.microsoft.com/en-us/mem/intune/enrollment/troubleshoot-device-enrollment-in-intune)
 - [Autopilot Deployment Guide](https://learn.microsoft.com/en-us/mem/autopilot/windows-autopilot)
+
+### Defender for Endpoint {#MDE}
+**Why it's important:**
+- Provides advanced endpoint protection
+- Enables threat hunting capabilities
+- Automates threat response
+- Reduces security incident impact
+- Improves security team efficiency
+
+**Implementation Steps:**
+1. Plan deployment architecture
+   - Assess environment requirements
+   - Define deployment method
+   - Plan network configuration
+   - Prepare pilot group
+2. Configure device onboarding
+   - Set up deployment rings
+   - Configure onboarding packages
+   - Test pilot deployment
+   - Plan full rollout
+3. Implement security policies
+   - Configure attack surface reduction
+   - Set up device control
+   - Enable web protection
+   - Configure exploit protection
+4. Enable advanced features
+   - Set up EDR in block mode
+   - Configure automated investigation
+   - Enable advanced hunting
+   - Implement custom detections
+
+**Learn More:**
+- [MDE Overview](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/microsoft-defender-endpoint)
+- [Deployment Guide](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/deployment-strategy)
+- [Security Baselines](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/security-baseline)
+- [Advanced Features](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/advanced-features)
 
 ### Defender Vulnerability Management {#MDVM}
 **Why it's important:**
@@ -666,42 +704,6 @@ Implement comprehensive governance and management.
 - [Configure and Manage Apps](https://learn.microsoft.com/en-us/mem/intune/apps/app-configuration-policies-overview)
 - [App Protection Policies](https://learn.microsoft.com/en-us/mem/intune/apps/app-protection-policies)
 - [Deployment Troubleshooting](https://learn.microsoft.com/en-us/mem/intune/apps/troubleshoot-app-install)
-
-### Defender for Endpoint {#MDE}
-**Why it's important:**
-- Provides advanced endpoint protection
-- Enables threat hunting capabilities
-- Automates threat response
-- Reduces security incident impact
-- Improves security team efficiency
-
-**Implementation Steps:**
-1. Plan deployment architecture
-   - Assess environment requirements
-   - Define deployment method
-   - Plan network configuration
-   - Prepare pilot group
-2. Configure device onboarding
-   - Set up deployment rings
-   - Configure onboarding packages
-   - Test pilot deployment
-   - Plan full rollout
-3. Implement security policies
-   - Configure attack surface reduction
-   - Set up device control
-   - Enable web protection
-   - Configure exploit protection
-4. Enable advanced features
-   - Set up EDR in block mode
-   - Configure automated investigation
-   - Enable advanced hunting
-   - Implement custom detections
-
-**Learn More:**
-- [MDE Overview](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/microsoft-defender-endpoint)
-- [Deployment Guide](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/deployment-strategy)
-- [Security Baselines](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/security-baseline)
-- [Advanced Features](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/advanced-features)
 
 ### Risk-Based Conditional Access {#RCA}
 **Why it's important:**
