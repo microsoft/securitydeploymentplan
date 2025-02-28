@@ -40,7 +40,7 @@
         },
         {
             "id": "MDVM",
-            "text": "Have you configured Microsoft Defender Vulnerability Management?",
+            "text": "Have you reviewed the recommendations from Microsoft Defender Vulnerability Management?",
             "description": "Defender Vulnerability Management helps identify, assess, and remediate endpoint vulnerabilities.",
             "docLink": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-vulnerability-management/defender-vulnerability-management"
         },
