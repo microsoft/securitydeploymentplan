@@ -483,7 +483,7 @@ Implement comprehensive governance and management.
 **Learn More:**
 - [Technical Documentation](https://learn.microsoft.com/en-us/purview/data-security-posture-management)
 - [Microsoft Learn Path: DSPM](https://learn.microsoft.com/en-us/training/modules/implement-purview-data-security/)
-- [Video Series: DSPM Implementation](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+- [Video Series: Data Security Posture Management (DSPM)](https://www.youtube.com/watch?v=xr5DGzAs4no&t=1s)
 - [Deployment Guide](https://learn.microsoft.com/en-us/purview/implement-dspm)
 - [Best Practices](https://learn.microsoft.com/en-us/purview/best-practices-dspm)
 
@@ -520,7 +520,7 @@ Implement comprehensive governance and management.
 **Learn More:**
 - [Technical Documentation](https://learn.microsoft.com/en-us/microsoft-365/compliance/endpoint-dlp-learn-about)
 - [Microsoft Learn Path: DLP Implementation](https://learn.microsoft.com/en-us/training/modules/implement-endpoint-dlp/)
-- [Video Tutorial: Endpoint DLP](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+- [Video: Data Loss Prevention across endpoints, apps, & services](https://www.youtube.com/watch?v=hvqq8L_0kgI)
 - [Deployment Guide](https://learn.microsoft.com/en-us/microsoft-365/compliance/endpoint-dlp-getting-started)
 - [Best Practices](https://learn.microsoft.com/en-us/microsoft-365/compliance/dlp-configure-endpoints)
 
