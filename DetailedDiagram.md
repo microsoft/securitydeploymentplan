@@ -154,12 +154,12 @@
                     RemoteHelp["Remote Help"]
                     EPM["Endpoint Privilege Management"]
                     AppManagement["Enterprise App Management"]
-                    Cloudpki["Cloud PKI"]
+                    CloudPKI["Cloud PKI"]
                 end
 
                 AppManagement --> IntuneSuite
                 EndpointAnalytics --> IntuneSuite
-                Cloudpki --> IntuneSuite
+                CloudPKI --> IntuneSuite
                 RemoteHelp --> IntuneSuite
                 EPM --> IntuneSuite
 
@@ -170,7 +170,7 @@
                 click RemoteHelp "https://learn.microsoft.com/en-us/mem/intune/remote-actions/remote-help" _blank
                 click EPM "https://learn.microsoft.com/en-us/mem/intune/protect/endpoint-privilege-management" _blank
                 click AppManagement "https://learn.microsoft.com/en-us/mem/intune/apps/app-management" _blank
-                click Cloudpki "https://learn.microsoft.com/en-us/mem/intune/protect/microsoft-cloud-pki-overview" _blank
+                click CloudPKI "https://learn.microsoft.com/en-us/mem/intune/protect/microsoft-cloud-pki-overview" _blank
 
                 %% Styling
                 classDef deployed fill:#90EE90,stroke:#333,stroke-width:2px
