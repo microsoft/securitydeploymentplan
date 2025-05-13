@@ -808,10 +808,11 @@ Implement comprehensive governance and management.
    - Optimize performance
 
 **Learn More:**
-- [GSA Overview](https://learn.microsoft.com/en-us/entra/global-secure-access/overview)
-- [Implementation Guide](https://learn.microsoft.com/en-us/entra/global-secure-access/implementation-guide)
-- [Security Features](https://learn.microsoft.com/en-us/entra/global-secure-access/security)
-- [Best Practices](https://learn.microsoft.com/en-us/entra/global-secure-access/best-practices)
+- [GSA Overview](https://learn.microsoft.com/en-us/entra/global-secure-access/overview-what-is-global-secure-access)
+- [GSA Deployment Overview](https://learn.microsoft.com/en-us/entra/architecture/gsa-deployment-guide-intro)
+- [GSA Clients Overview](https://learn.microsoft.com/en-us/entra/global-secure-access/concept-clients)
+- [GSA Partner Integration Guides](https://learn.microsoft.com/en-us/entra/global-secure-access/partner-ecosystems-overview)
+- [Remote Networks Overview](https://learn.microsoft.com/en-us/entra/global-secure-access/concept-remote-network-connectivity)
 
 ### Entra Internet Access {#EIA}
 **Why it's important:**
@@ -845,9 +846,9 @@ Implement comprehensive governance and management.
 
 **Learn More:**
 - [EIA Overview](https://learn.microsoft.com/en-us/entra/internet-access/overview)
-- [Configuration Guide](https://learn.microsoft.com/en-us/entra/internet-access/how-to-connect)
-- [Security Features](https://learn.microsoft.com/en-us/entra/internet-access/security-features)
-- [Best Practices](https://learn.microsoft.com/en-us/entra/internet-access/best-practices)
+- [Deployment Guide](https://learn.microsoft.com/en-us/entra/architecture/gsa-deployment-guide-internet-access)
+- [Entra Suite Deployment Scenario](https://learn.microsoft.com/en-us/entra/architecture/deployment-scenario-remote-access)
+- [GSA FAQ](https://learn.microsoft.com/en-us/entra/global-secure-access/resource-faq)
 
 ### Entra Private Access {#EPA}
 **Why it's important:**
@@ -881,9 +882,9 @@ Implement comprehensive governance and management.
 
 **Learn More:**
 - [EPA Overview](https://learn.microsoft.com/en-us/entra/identity/private-access/private-access-overview)
-- [Deployment Guide](https://learn.microsoft.com/en-us/entra/identity/private-access/deployment-guide)
-- [Security Configuration](https://learn.microsoft.com/en-us/entra/identity/private-access/security)
-- [Best Practices](https://learn.microsoft.com/en-us/entra/identity/private-access/best-practices)
+- [Deployment Guide](https://learn.microsoft.com/en-us/entra/architecture/gsa-deployment-guide-private-access)
+- [Entra Suite Deployment Scenario](https://learn.microsoft.com/en-us/entra/architecture/deployment-scenario-remote-access)
+- [GSA FAQ](https://learn.microsoft.com/en-us/entra/global-secure-access/resource-faq)
 
 ### Verified ID {#VID}
 **Why it's important:**
