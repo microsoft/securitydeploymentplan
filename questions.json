@@ -20,13 +20,6 @@
             "docLink": "https://learn.microsoft.com/en-us/entra/identity/authentication/concept-mfa-howitworks"
         },
         {
-            "id": "IntuneCompPol",
-            "text": "Have you configured Intune compliance policies?",
-            "description": "Compliance policies define the rules and settings devices must meet to be compliant.",
-            "docLink": "https://learn.microsoft.com/en-us/mem/intune/protect/device-compliance-get-started",
-            "children": ["IntuneEnroll", "AppProtection"]
-        },
-        {
             "id": "AppProtection",
             "text": "Have you configured App Protection Policies?",
             "description": "App protection policies help protect organization data within managed apps.",
@@ -111,32 +104,32 @@
             "id": "GSA",
             "text": "Have you configured Entra Global Secure Access SSE?",
             "description": "Global Secure Access provides secure connectivity for remote workers.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/global-secure-access/overview",
+            "docLink": "https://learn.microsoft.com/en-us/entra/global-secure-access/overview-what-is-global-secure-access",
             "children": ["EIA", "EPA", "EPAConn"]
         },
         {
             "id": "EIA",
             "text": "Have you deployed Entra Internet Access?",
             "description": "Secure internet access and web filtering for your organization.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/internet-access/overview"
+            "docLink": "https://learn.microsoft.com/en-us/entra/global-secure-access/concept-internet-access"
         },
         {
             "id": "EPA",
             "text": "Have you deployed Entra Private Access?",
             "description": "Entra Private Access provides secure access to private applications without VPNs.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/identity/private-access/private-access-overview"
+            "docLink": "https://learn.microsoft.com/en-us/entra/global-secure-access/concept-private-access"
         },
         {
             "id": "EPAConn",
             "text": "Have you deployed Entra Private Access Connector?",
             "description": "The connector enables secure access to on-premises applications.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/identity/private-access/deployment-guide"
+            "docLink": "https://learn.microsoft.com/en-us/entra/global-secure-access/concept-connectors"
         },
         {
             "id": "DSPM",
             "text": "Have you implemented Data Security and Privacy Management?",
             "description": "DSPM helps discover, classify, and protect sensitive data across your cloud environment.",
-            "docLink": "https://learn.microsoft.com/en-us/purview/data-security"
+            "docLink": "https://learn.microsoft.com/en-us/purview/data-security-posture-management-get-started"
         },
         {
             "id": "EndpointDLP",
@@ -148,7 +141,7 @@
             "id": "EPM",
             "text": "Have you configured Endpoint Privilege Management?",
             "description": "EPM helps manage and monitor privileged access on endpoints.",
-            "docLink": "https://learn.microsoft.com/en-us/mem/intune/protect/endpoint-privilege-management"
+            "docLink": "https://learn.microsoft.com/en-us/intune/intune-service/protect/epm-overview"
         },
         {
             "id": "CloudPKI",
@@ -172,7 +165,7 @@
             "id": "AppManagement",
             "text": "Have you configured Enterprise App Management?",
             "description": "Enterprise App Management helps deploy and manage applications across your organization.",
-            "docLink": "https://learn.microsoft.com/en-us/mem/intune/apps/"
+            "docLink": "https://learn.microsoft.com/en-us/intune/intune-service/apps/apps-enterprise-app-management"
         },
         {
             "id": "MDCA",
@@ -184,26 +177,26 @@
             "id": "VID",
             "text": "Have you deployed Entra Verified ID?",
             "description": "Enables issuance and verification of decentralized identity credentials.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/verified-id/overview",
+            "docLink": "https://learn.microsoft.com/en-us/entra/verified-id/decentralized-identifier-overview",
             "children": ["VIDCred", "VIDWorkflow"]
         },
         {
             "id": "VIDCred",
             "text": "Have you configured Verified Credentials?",
             "description": "Set up and manage verifiable credentials for your organization.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/verified-id/verifiable-credentials-configure"
+            "docLink": "https://learn.microsoft.com/en-us/entra/verified-id/credential-design"
         },
         {
             "id": "VIDWorkflow",
             "text": "Have you configured Verification Workflow?",
             "description": "Set up workflows for issuing and verifying credentials.",
-            "docLink": "https://learn.microsoft.com/en-us/entra/verified-id/verifiable-credentials-configure-workflow"
+            "docLink": "https://learn.microsoft.com/en-us/entra/verified-id/plan-verification-solution"
         },
         {
             "id": "EndpointAnalytics",
             "text": "Have you deployed Advanced Endpoint Analytics?",
             "description": "Monitor and improve end-user experience with proactive insights and recommendations.",
-            "docLink": "https://learn.microsoft.com/en-us/mem/analytics/"
+            "docLink": "https://learn.microsoft.com/en-us/intune/analytics/settings"
         },
         {
             "id": "PurAud",
