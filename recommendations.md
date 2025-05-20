@@ -20,28 +20,24 @@ Review the Sample Plan:
 - Simplifies user access management
 
 **Implementation Steps:**
-1. Configure Azure AD Connect
-   - Install latest version of Azure AD Connect
-   - Choose appropriate authentication method
-   - Configure filtering if needed
-2. Set up password hash synchronization
-   - Enable password hash sync in Azure AD Connect
-   - Configure password writeback if needed
+1. Configure Entra Cloud Sync
+   - Install the provisioning agent
+   - Verify the agent installation in the portal
+   - Enable password writeback in the portal
+2. Configure the Entra Sync Agent
+   - Provision Active Directory to Entra ID
    - Set up self-service password reset
-3. Enable seamless single sign-on
-   - Configure Kerberos decryption key distribution
-   - Add Azure AD URL to intranet zones
-   - Test SSO functionality
-4. Verify synchronization
-   - Check sync status in Azure portal
+3. Verify synchronization
+   - Check sync status in Entra portal
    - Validate user attributes
    - Test user sign-in
 
 **Learn More:**
-- [Technical Documentation](https://learn.microsoft.com/en-us/entra/fundamentals/whatis)
-- [Microsoft Learn Path: Implement Identity Synchronization](https://learn.microsoft.com/en-us/training/paths/implement-identity-synchronization/)
-- [Video Tutorial: Azure AD Connect Setup](https://www.youtube.com/watch?v=MeXuPdJUqD0)
-- [Best Practices Guide](https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/plan-connect-topologies)
+- [What is Entra Cloud Sync?](https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/what-is-cloud-sync)
+- [Tutorial: Integrate a single forest with a single Microsoft Entra tenant](https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/tutorial-single-forest)
+- [Video: Microsoft Entra Connect Cloud Sync Overview](https://www.youtube.com/watch?v=xSumiK3kOaU)
+- [Entra Cloud Sync FAQ](https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/reference-cloud-sync-faq)
+- [Learn Path: Explore Identity in Microsoft Entra ID](https://learn.microsoft.com/en-us/training/modules/explore-identity-azure-active-directory/)
 
 ### Multi-Factor Authentication {#MFA}
 **Why it's important:**
