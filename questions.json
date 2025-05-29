@@ -49,7 +49,7 @@
             "text": "Have you implemented Extended Detection and Response (XDR)?",
             "description": "XDR provides unified security incident detection and response across endpoints, identities, and cloud apps.",
             "docLink": "https://learn.microsoft.com/en-us/microsoft-365/security/defender/microsoft-365-defender",
-            "children": ["MDO", "MDE", "DID"]
+            "children": ["MDO", "MDE", "MDI"]
         },
         {
             "id": "MDO",
@@ -64,7 +64,13 @@
             "docLink": "https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/microsoft-defender-endpoint"
         },
         {
-            "id": "DID",
+            "id": "MDA",
+            "text": "Have you deployed Microsoft Defender for Cloud Apps?",
+            "description": "Defender for Cloud Apps provides advanced protection for Software as a service (SaaS) applications.",
+            "docLink": "https://learn.microsoft.com/en-us/defender-cloud-apps/what-is-defender-for-cloud-apps"
+        },
+        {
+            "id": "MDI",
             "text": "Have you deployed Defender for Identity?",
             "description": "Defender for Identity protects your on-premises Active Directory identities.",
             "docLink": "https://learn.microsoft.com/en-us/defender-for-identity/what-is"
